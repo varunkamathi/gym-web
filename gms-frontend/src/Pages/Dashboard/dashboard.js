@@ -6,6 +6,7 @@ import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 import ErrorIcon from '@mui/icons-material/Error';
 import ReportIcon from '@mui/icons-material/Report';
+import TechError from '@mui/icons-material/Report';
 import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
@@ -13,13 +14,15 @@ const Dashboard = () => {
   const ref = useRef();
 
   useEffect(()=>{
-
-    // .       
-            // .
-            // Please Watch the youtube video for full code 
-            // .
-            // .
-            // .
+    const checkIfClickedOutSide = e => {
+      if(accordianDashboard && ref.current && !ref.current.Contain(e.target)){
+        setAccordianDashboard(false);
+      }
+      document.addEventListener("mousedown", checkIfClickedOutSide)
+      return () => {
+        document.removeEventListener("mousedown", checkIfClickedOutSide)
+      }
+    }
 },[accordianDashboard])
 
   const handleOnClickMenu = (value)=>{
@@ -53,12 +56,37 @@ const Dashboard = () => {
             // . */}
 
         {/* this is the card block */}
+        <Link to={'/member'} onClick={()=>handleOnClickMenu("monthlyJoined")} className='w-full h-fit border-2 bg-white rounded-lg cursor-pointer'>
+          <div className='h-3 rounded-t-lg bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'></div>
+
+          <div className='py-7 px-5 flex-col justify-center items-center w-full text-center rounded-b-lg hover:bg-slate-900 hover:text-white '>
+            <PeopleAltIcon sx={{ color: "green", fontSize: "50px" }} />
+            <p className='text-xl my-3 font-semibold font-mono'>Joined Members</p>
+          </div>
+        </Link>
+
         <Link to={'/specific/monthly'} onClick={()=>handleOnClickMenu("monthlyJoined")} className='w-full h-fit border-2 bg-white rounded-lg cursor-pointer'>
           <div className='h-3 rounded-t-lg bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'></div>
 
           <div className='py-7 px-5 flex-col justify-center items-center w-full text-center rounded-b-lg hover:bg-slate-900 hover:text-white '>
             <SignalCellularAltIcon sx={{ color: "purple", fontSize: "50px" }} />
             <p className='text-xl my-3 font-semibold font-mono'>Monthly Joined</p>
+          </div>
+        </Link>
+        <Link to={'/specific/monthly'} onClick={()=>handleOnClickMenu("monthlyJoined")} className='w-full h-fit border-2 bg-white rounded-lg cursor-pointer'>
+          <div className='h-3 rounded-t-lg bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'></div>
+
+          <div className='py-7 px-5 flex-col justify-center items-center w-full text-center rounded-b-lg hover:bg-slate-900 hover:text-white '>
+            <AccessAlarmIcon sx={{ color: "red", fontSize: "50px" }} />
+            <p className='text-xl my-3 font-semibold font-mono'>Expiring Within 3 Days</p>
+          </div>
+        </Link>
+        <Link to={'/specific/monthly'} onClick={()=>handleOnClickMenu("monthlyJoined")} className='w-full h-fit border-2 bg-white rounded-lg cursor-pointer'>
+          <div className='h-3 rounded-t-lg bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'></div>
+
+          <div className='py-7 px-5 flex-col justify-center items-center w-full text-center rounded-b-lg hover:bg-slate-900 hover:text-white '>
+            <ReportIcon sx={{ color: "red", fontSize: "50px" }} />
+            <p className='text-xl my-3 font-semibold font-mono'>Inactive Member</p>
           </div>
         </Link>
 

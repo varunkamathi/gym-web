@@ -10,12 +10,19 @@ const Sidebar = () => {
     const navigate = useNavigate()
 
     const greetingMessage = ()=>{
-        // .       
-            // .
-            // Please Watch the youtube video for full code 
-            // .
-            // .
-            // .
+        const currentHour= new Date().getHours();
+        if(currentHour < 12 ){
+            setGreeting("Good Morning")
+        }
+        else if(currentHour < 18 ){
+            setGreeting("Good Afternoon")
+        } 
+        else if(currentHour < 21 ){
+            setGreeting("Good Evening")
+        }
+        else {
+            setGreeting("Good Night")
+        }   
     }
 
     useEffect(()=>{
@@ -38,6 +45,19 @@ const Sidebar = () => {
             // .
             // .
             // . */}
+            <div className='text-center text-3xl'>
+                Power Zone
+            </div>
+            <div className='flex gap-5 my-5'>
+                <div className=''>
+                    <img />
+                </div>
+                <div >
+                    <div className='text-2xl'>{greeting}</div>
+                    <div className='text-xl mt-1 font-semibold'>admin</div>
+                </div>
+            </div>
+
 
         <div className='mt-10 py-10 border-t-2 border-gray-700'>
             <Link to='/dashboard' className={`flex items-center gap-8 font-semibold text-xl bg-slate-800 p-3 rounded-xl cursor-pointer hover:bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:text-black ${location.pathname==="/dashboard"?'border-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500':null}`}>               
@@ -48,6 +68,10 @@ const Sidebar = () => {
             <Link to='/member' className={`flex items-center mt-5 gap-8 font-semibold text-xl bg-slate-800 p-3 rounded-xl cursor-pointer hover:bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:text-black ${location.pathname==="/member"?'border-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500':null}`}>
                 <div><GroupIcon/></div>
                 <div>Members</div>
+            </Link>
+            <Link to='/logout' className={`flex items-center mt-5 gap-8 font-semibold text-xl bg-slate-800 p-3 rounded-xl cursor-pointer hover:bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:text-black ${location.pathname==="/member"?'border-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500':null}`}>
+                <div><LogoutIcon/></div>
+                <div>Logout</div>
             </Link>
 
             {/* // .       
