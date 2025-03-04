@@ -27,3 +27,6 @@ yarn-debug.log*
 yarn-error.log*
 
 .gitgnore
+
+/node_modules
+.env

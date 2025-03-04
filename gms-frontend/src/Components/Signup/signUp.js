@@ -18,15 +18,31 @@ const SignUp = () => {
     const handleOnchange = (event, name) => {
         setInputField({ ...inputField, [name]: event.target.value })
     }
+    console.log(inputField)
+
+
 
     const uploadImage = async (event) => {
+        console.log("image upload");
+        setLoaderImage(true);
+        const files = event.target.files;
+        const data = new FormData(); 
+        
+        data.append('file', files[0]);
+        data.append('upload_preset', 'gym_members');
+        
+        try{
+        //dlnbvazs1
+        const response = await axios.post("https://api.cloudinary.com/v1_1/dlnbvazs1/image/upload", data);
+        console.log(response);
+        const imageUrl = response.data.url;
+        setLoaderImage(false);
 
-        // .       
-            // .
-            // Please Watch the youtube video for full code 
-            // .
-            // .
-            // .
+        setInputField({...inputField,['profilePic']:imageUrl});
+        }catch(err){
+        console.log(err)
+        setLoaderImage(false);
+        }
 
 
     }
@@ -55,14 +71,11 @@ const SignUp = () => {
 
             <input type='text' value={inputField.userName} onChange={(event) => { handleOnchange(event, "userName") }} className='w-full mb-10 p-2 rounded-lg' placeholder='Enter UserName' />
             <input type='password' value={inputField.password} onChange={(event) => { handleOnchange(event, "password") }} className='w-full mb-10 p-2 rounded-lg' placeholder='Enter password' />
-            <input type='file' value={inputField.file} onChange={(event) => { handleOnchange(event, "") }} className='w-full mb-10 p-2 rounded-lg' placeholder='' />
+            <input type='file' onClick={(event) => { uploadImage(event) }} className='w-full mb-10 p-2 rounded-lg' />
 
-            {/* // .       
-            // .
-            // Please Watch the youtube video for full code 
-            // .
-            // .
-            // . */}
+            { loaderImage && <Stack sx={{width:'100%', color:'gray.500'}} spacing={2}>
+                <LinearProgress color='secondary'/>
+            </Stack>}
 
             <img src={inputField.profilePic} className='mb-10 h-[200px] w-[250px]' />
 

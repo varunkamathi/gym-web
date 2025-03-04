@@ -37,6 +37,26 @@ const AddmemberShip = ({handleClose}) => {
         <div className='text-black'>
             <div className='flex flex-wrap gap-5 items-center justify-center'>
 
+                <div className='text-lg bg-slate-900 text-white border-2 pl-2 pr-2 flex-col gap-3 justify-between pt-1 pb-1 rounded-xl font-semibold hover:bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'>
+                    <div>1 Months Membersip</div>
+                    <div>Rs 1000</div>
+                </div>
+                <div className='text-lg bg-slate-900 text-white border-2 pl-2 pr-2 flex-col gap-3 justify-between pt-1 pb-1 rounded-xl font-semibold hover:bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'>
+                    <div>2 Months Membersip</div>
+                    <div>Rs 1800</div>
+                </div>
+                <div className='text-lg bg-slate-900 text-white border-2 pl-2 pr-2 flex-col gap-3 justify-between pt-1 pb-1 rounded-xl font-semibold hover:bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'>
+                    <div>3 Months Membersip</div>
+                    <div>Rs 2600</div>
+                </div>
+                <div className='text-lg bg-slate-900 text-white border-2 pl-2 pr-2 flex-col gap-3 justify-between pt-1 pb-1 rounded-xl font-semibold hover:bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'>
+                    <div>4 Months Membersip</div>
+                    <div>Rs 4000</div>
+                </div>
+                <div className='text-lg bg-slate-900 text-white border-2 pl-2 pr-2 flex-col gap-3 justify-between pt-1 pb-1 rounded-xl font-semibold hover:bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'>
+                    <div>6 Months Membersip</div>
+                    <div>Rs 6000</div>
+                </div>
                 {/* // .       
             // .
             // Please Watch the youtube video for full code 

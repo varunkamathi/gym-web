@@ -82,6 +82,9 @@ const MemberDetail = () => {
             // .
             // .
             // . */}
+                        <div className='mt-1 mb-2 text-2xl font-semibold'>Name : {data?.createdAt.slice(0,10).split('-').reverse().join('-')}</div>
+                        <div className='mt-1 mb-2 text-2xl font-semibold'>Mobile No. : {data?.createdAt.slice(0,10).split('-').reverse().join('-')}</div>
+                        <div className='mt-1 mb-2 text-2xl font-semibold'>Address : {data?.createdAt.slice(0,10).split('-').reverse().join('-')}</div>
                         <div className='mt-1 mb-2 text-2xl font-semibold'>Joined Date : {data?.createdAt.slice(0,10).split('-').reverse().join('-')}</div>
                         <div className='mt-1 mb-2 text-2xl font-semibold'>Next Bill Date : {data?.nextBillDate.slice(0,10).split('-').reverse().join('-')}</div>
                         <div className='mt-1 mb-2 flex gap-4 text-2xl font-semibold'> Status : <Switch onColor='#6366F1' checked={status === "Active"} onChange={() => { handleSwitchBtn() }} /></div>

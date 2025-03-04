@@ -60,23 +60,28 @@ const Member = () => {
 
     const handlePrev = () => {
         if (currentPage !== 1) {
-            // .       
-            // .
-            // Please Watch the youtube video for full code 
-            // .
-            // .
-            // .
+            let currPage = currentPage-1;
+            setCurrentPage(currPage);
+            var from = (currPage-1)*9;
+            var to = (currPage*9);
+            setSTartFrom(from);
+            setEndTo(to);
+            
         }
     }
 
     const handleNext = () => {
         if (currentPage !== noOfPage) {
-            // .       
-            // .
-            // Please Watch the youtube video for full code 
-            // .
-            // .
-            // .
+            let currPage = currentPage+1;
+            setCurrentPage(currPage);
+            var from = (currPage-1)*9;
+            var to = (currPage*9)
+            if(to>totalData){
+                to = totalData;
+            }
+            setSTartFrom(from)
+            setEndTo(to);
+            
         }
     }
 

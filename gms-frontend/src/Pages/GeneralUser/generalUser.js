@@ -70,6 +70,12 @@ const GeneralUser = () => {
             // .
             // .
             // . */}
+            <div className='bg-slate-100 p-5 mt-5 rounded-lg grid gap-2 grid-cols-3 overflow-x-auto h-[80%]'>
+            <MemberCard/>
+            <MemberCard/>
+            <MemberCard/>
+            <MemberCard/>
+            </div>
 
         </div>
     )

@@ -69,17 +69,10 @@ const Sidebar = () => {
                 <div><GroupIcon/></div>
                 <div>Members</div>
             </Link>
-            <Link to='/logout' className={`flex items-center mt-5 gap-8 font-semibold text-xl bg-slate-800 p-3 rounded-xl cursor-pointer hover:bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:text-black ${location.pathname==="/member"?'border-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500':null}`}>
+            <div onClick={()=>{handleLogout()}} className={`flex items-center mt-5 gap-8 font-semibold text-xl bg-slate-800 p-3 rounded-xl cursor-pointer hover:bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:text-black`}>
                 <div><LogoutIcon/></div>
                 <div>Logout</div>
-            </Link>
-
-            {/* // .       
-            // .
-            // Please Watch the youtube video for full code 
-            // .
-            // .
-            // . */}
+            </div>
         </div>
     </div>
   )

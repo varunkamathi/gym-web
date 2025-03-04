@@ -6,7 +6,7 @@ import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 import ErrorIcon from '@mui/icons-material/Error';
 import ReportIcon from '@mui/icons-material/Report';
-import TechError from '@mui/icons-material/Report';
+//import TechError from '@mui/icons-material/Report';
 import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
@@ -47,13 +47,7 @@ const Dashboard = () => {
 
       <div className='mt-5 pt-3 bg-slate-100 bg-opacity-50 grid gap-5 grid-cols-3 w-full pb-5 overflow-x-auto h-[80%]'>
 
-        {/* this is the card block */}
-        {/* // .       
-            // .
-            // Please Watch the youtube video for full code 
-            // .
-            // .
-            // . */}
+      
 
         {/* this is the card block */}
         <Link to={'/member'} onClick={()=>handleOnClickMenu("monthlyJoined")} className='w-full h-fit border-2 bg-white rounded-lg cursor-pointer'>
@@ -73,7 +67,7 @@ const Dashboard = () => {
             <p className='text-xl my-3 font-semibold font-mono'>Monthly Joined</p>
           </div>
         </Link>
-        <Link to={'/specific/monthly'} onClick={()=>handleOnClickMenu("monthlyJoined")} className='w-full h-fit border-2 bg-white rounded-lg cursor-pointer'>
+        <Link to={'/specific/expiring-within-3-days'} onClick={()=>handleOnClickMenu("threeDayExpire")} className='w-full h-fit border-2 bg-white rounded-lg cursor-pointer'>
           <div className='h-3 rounded-t-lg bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'></div>
 
           <div className='py-7 px-5 flex-col justify-center items-center w-full text-center rounded-b-lg hover:bg-slate-900 hover:text-white '>
@@ -81,7 +75,7 @@ const Dashboard = () => {
             <p className='text-xl my-3 font-semibold font-mono'>Expiring Within 3 Days</p>
           </div>
         </Link>
-        <Link to={'/specific/monthly'} onClick={()=>handleOnClickMenu("monthlyJoined")} className='w-full h-fit border-2 bg-white rounded-lg cursor-pointer'>
+        <Link to={'/specific/inactive-member'} onClick={()=>handleOnClickMenu("inActiveMembers")} className='w-full h-fit border-2 bg-white rounded-lg cursor-pointer'>
           <div className='h-3 rounded-t-lg bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'></div>
 
           <div className='py-7 px-5 flex-col justify-center items-center w-full text-center rounded-b-lg hover:bg-slate-900 hover:text-white '>
@@ -90,13 +84,7 @@ const Dashboard = () => {
           </div>
         </Link>
 
-        {/* this is the card block */}
-        {/* // .       
-            // .
-            // Please Watch the youtube video for full code 
-            // .
-            // .
-            // . */}
+       
 
         {/* this is the card block */}
         <Link to={'/specific/expire-with-in-4-7-days'} onClick={()=>handleOnClickMenu("fourToSevenDaysExpire")} className='w-full h-fit border-2 bg-white rounded-lg cursor-pointer'>

@@ -25,10 +25,10 @@ const Addmembers = () => {
 
     
 
-    data.append('upload_preset', 'gym-management');
+    data.append('upload_preset', 'gym_members');
 
     try {
-      const response = await axios.post("https://api.cloudinary.com/v1_1/mashhuudanny/image/upload", data);
+      const response = await axios.post("https://api.cloudinary.com/v1_1/dlnbvazs1/image/upload", data);
       console.log(response)
       const imageUrl = response.data.url;
       setInputField({ ...inputField, ['profilePic']: imageUrl })
@@ -88,13 +88,14 @@ const Addmembers = () => {
     <div className='text-black'>
       <div className='grid gap-5 grid-cols-2 text-lg'>
 
-        <input value={inputField.name} onChange={(event) => { handleOnChange(event, "name") }} placeholder='Name of the Joinee' type='text' className='border-2 w-[90%] pl-3 pr-3 pt-2 pb-2 border-slate-400 rounded-md h-12' />
-        {/* // .       
-            // .
-            // Please Watch the youtube video for full code 
-            // .
-            // .
-            // . */}
+        
+      <input value={inputField.name} onChange={(event) => { handleOnChange(event, "name") }} placeholder='Name of the Joinee' type='text' className='border-2 w-[90%] pl-3 pr-3 pt-2 pb-2 border-slate-400 rounded-md h-12' />
+      <input value={inputField.mobileNo} onChange={(event) => { handleOnChange(event, "mobileN0") }} placeholder='98xxxxxxx' type='text' className='border-2 w-[90%] pl-3 pr-3 pt-2 pb-2 border-slate-400 rounded-md h-12' />
+      <input value={inputField.address} onChange={(event) => { handleOnChange(event, "address") }} placeholder='Address' type='text' className='border-2 w-[90%] pl-3 pr-3 pt-2 pb-2 border-slate-400 rounded-md h-12' />
+      <input value={inputField.joiningDate} onChange={(event) => { handleOnChange(event, "") }}  type='date' className='border-2 w-[90%] pl-3 pr-3 pt-2 pb-2 border-slate-400 rounded-md h-12' />
+
+       
+
         <select value={selectedOption} onChange={handleOnChangeSelect} className='border-2 w-[90%] h-12 pt-2 pb-2 border-slate-400 rounded-md placeholder:text-gray'>
           {
            membershipList.map((item,index)=>{
@@ -107,13 +108,15 @@ const Addmembers = () => {
         </select>
 
         <input type='file' onChange={(e) => uploadImage(e)} />
+      
 
-        {/* // .       
-            // .
-            // Please Watch the youtube video for full code 
-            // .
-            // .
-            // . */}
+        <div className='w-1/4'>
+        <img src={inputField.profilePic} className='w-full h-full rounded-full' />
+        { imageLoader && <Stack sx={{width:'100%', color:'gray.500'}} spacing={2}>
+                <LinearProgress color='secondary'/>
+            </Stack>}
+        </div>
+        
 
 
         <div onClick={()=>handleRegisterButton()} className='p-3 border-2 w-28 text-lg h-14 text-center bg-slate-900 text-white rounded-xl cursor-pointer hover:bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'>Register</div>
