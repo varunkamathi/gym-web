@@ -10,12 +10,15 @@ exports.register = async(req,res)=>{
 
         const isExist = await Gym.findOne({userName});
 
-        // .       
-            // .
-            // Please Watch the youtube video for full code 
-            // .
-            // .
-            // .
+        if(isExist){
+            res.status(400).json({
+                error:"Username Already Exist, Please try with other username"
+            })
+        }else{
+            const newGym = new Gym({userName ,password, gymName, profilePic,email});
+            await newGym.save();
+            res.status(201).json({message: 'User registered sucessfully', success:"yes",data:newGym})
+        }
 
     }catch(err){
         res.status(500).json({
@@ -41,12 +44,11 @@ exports.login = async(req,res)=>{
 
         if(gym && await bcrypt.compare(password,gym.password)){
 
-            // .       
-            // .
-            // Please Watch the youtube video for full code 
-            // .
-            // .
-            // .
+            const token = jwt.sign({gym_id:gym._id}, process.env.JWT_SecretKey);
+
+            res.cookie("cookies_token" , token, cookieOptions)
+
+            res.json({message:"logged in successfully " ,success:"true", gym})
 
 
         }else{
@@ -85,16 +87,26 @@ exports.sendOtp = async (req,res)=>{
 
             await gym.save();
 
-            // .       
-            // .
-            // Please Watch the youtube video for full code 
-            // .
-            // .
-            // .
+            const mailOptions = {
+                from: "varunkamathi522004@gmail.com",
+                to: email,
+                subject: 'password Reset',
+                text: `you request a password reset. Your OPT is : ${token}`
+            };
   
         }else{
             return res.status(400).json({ error: 'Gym not found' });
         }
+
+
+        transporter.sendMail(mailOptions, (error,info)=>{
+            if(error){
+                res.status(500).json({error: 'server error',errorMs:error})
+            }
+            else{
+                res.status(200).json({message: "OTP sent to your email"})
+            }
+        });
 
     }catch(err){
         res.status(500).json({
@@ -107,12 +119,14 @@ exports.sendOtp = async (req,res)=>{
 exports.checkOtp = async(req,res)=>{
     try{
         const {email,otp} = req.body;
-        // .       
-            // .
-            // Please Watch the youtube video for full code 
-            // .
-            // .
-            // .
+        const gym = await Gym.findOne({
+            email,
+            resetPasswordToken :otp,
+            resetPasswordExpires : {$gt : Date.now()}
+        });
+        if(!gym){
+            return res.status(400).json({error: 'OTP is invalid or has expried'});
+        }
         res.status(200).json({message:"OTP is Successfully Verified"})
 
     }catch(err){
@@ -133,12 +147,12 @@ exports.resetPassword=async(req,res)=>{
             return res.status(400).json({ error: 'Some Technical Issue , please try again later' });
         }
 
-       // .       
-            // .
-            // Please Watch the youtube video for full code 
-            // .
-            // .
-            // .
+        const hashPassword = await bcrypt.hash(newPassword, 10);
+        gym.password = hashPassword;
+        gym.resetPasswordToken = undefined;
+        gym.resetPasswordExpires = undefined;
+
+        await gym.save();
 
         res.status(200).json({message:"Password Reset Successfully"})
 
@@ -148,6 +162,7 @@ exports.resetPassword=async(req,res)=>{
         })
     }
 }
+
 
 
 exports.logout = async(req,res)=>{

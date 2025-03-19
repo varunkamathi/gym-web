@@ -106,7 +106,7 @@ const Member = () => {
 
             {/* block for back to dashboard button */}
             <Link to={'/dashboard'}><ArrowBackIcon /> Back to Dashboard </Link>
-
+ 
             <div className='mt-5 w-1/2 flex gap-2'>
                 <input type='text' value={search} onChange={(e) => { setSearch(e.target.value) }} className='border-2 w-full p-2 rounded-lg' placeholder='Search By Name or Mobile No' />
                 <div onClick={() => { handleSearchData() }} className='bg-slate-900 p-3 border-2 text-white rounded-lg cursor-pointer hover:bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:text-black'><SearchIcon /></div>
