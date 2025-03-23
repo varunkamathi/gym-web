@@ -7,12 +7,12 @@ exports.getAllMember = async(req,res)=>{
         const members = await Member.find({gym:req.gym._id});
         const totalMember = members.length;
 
-        // .       
-            // .
-            // Please Watch the youtube video for full code 
-            // .
-            // .
-            // .
+        const limitedMembers = await Member.find({gym:req.gym._id}).sort({createdAt : -1}).skip(skip).limit(limit);
+        res.stauts(200).json({
+            meassage : members.length?"Fetched Members SuccessFully":"No any Member Registered yet",
+            members: limitedMembers ,
+            totalMembers: totalMember
+        })
             
 
     }catch(err){
@@ -68,13 +68,14 @@ exports.registerMember = async(req,res)=>{
         const membershipMonth = memberShip.months;
         if(memberShip){
             // .       
-            // .
-            // Please Watch the youtube video for full code 
-            // .
-            // .
-            // .
-
-        }else{
+           let jngDate = new Date(joiningDate);
+           const nextBillDate = addMonthsToDate(membershipMonth,jngDate);
+           let newmember = new Member({name,mobileNo,address,membership,gym:req.gym._id,profilePic,nextBillDate});
+           await newmember.save();
+           res.stauts(200).json({message : "Member Registered Successfully",newmember});
+        }
+        
+        else{
             return res.status(409).json({error:"No such Membership are there"})
         }
 
@@ -87,12 +88,17 @@ exports.registerMember = async(req,res)=>{
 exports.searchMember = async(req,res)=>{
     try{
         const {searchTerm} = req.query;
-        // .       
-            // .
-            // Please Watch the youtube video for full code 
-            // .
-            // .
-            // .
+        
+        const member = await Member.find({gym:req.gym._id,
+            $or:[{name:{$regex : '^' + searchTerm, $option:'i'}},
+                {moblieNo:{$regex : '^' + searchTerm,$option:'I'}}
+            ]
+        });
+        res.stauts(200).json({
+            message: member.length?"Fetched Members Successfully":"No Such Member Registered yet",
+            members:member,
+            totalMembers:member.length
+        })
 
     }catch(err){
         console.log(err)
@@ -136,12 +142,19 @@ exports.expiringWithin3Days= async(req,res)=>{
         const today = new Date();
         const nextThreeDays = new Date();
         nextThreeDays.setDate(today.getDate() + 3);
-// .       
-            // .
-            // Please Watch the youtube video for full code 
-            // .
-            // .
-            // .
+
+        const member = await Member.find({gym:req.gym._id,
+            nextBillDate : {
+                $gte : today,
+                $lte : nextThreeDays
+            }
+        });
+
+        res.status(200).json({
+            message : member.length?"Fetched Members Successfully":"No Such Member is Expiring within 3 days",
+            members:member,
+            totalMembers:member.length
+        })
 
 
     }catch(err){
@@ -156,12 +169,21 @@ exports.expiringWithIn4To7Days = async(req,res)=>{
         const next4Days = new Date();
         next4Days.setDate(today.getDate()+4);
 
-        // .       
-            // .
-            // Please Watch the youtube video for full code 
-            // .
-            // .
-            // .
+        const next7Days = new Date();
+        next7Days.setDate(today.getDate()+7);
+
+        const member = await Member.find({gym:req.gym._id,
+            nextBillDate: {
+                $gte: next4Days,
+                $lte: next7Days
+            }}
+        ) ;
+
+        res.status(200).json({
+            message:member.length?"Fetched Members Successfully":"No such Member is Expiring within 4-7 Days",
+            members:member,
+            totalMembers:member.length
+        })
 
 
     }catch(err){
@@ -174,12 +196,17 @@ exports.expiredMember = async(req,res)=>{
     try{
         const today = new Date();
 
-        // .       
-            // .
-            // Please Watch the youtube video for full code 
-            // .
-            // .
-            // .
+        const member = await Member.find({gym:req.gym._id,status:"Active",
+            nextBillDate:{
+                $lt:today
+            }
+        })
+
+        res.status(200).json({
+            message:member.length?"Fetched Members Successfully":"No Such Member has Been Expried",
+            members:member,
+            totalMembers:member.length
+        })
 
     }catch(err){
         console.log(err)
@@ -190,12 +217,12 @@ exports.expiredMember = async(req,res)=>{
 
 exports.inActiveMember = async(req,res)=>{
     try{
-        // .       
-            // .
-            // Please Watch the youtube video for full code 
-            // .
-            // .
-            // .
+        const member = await Member.find({gym:req.gym._id,status:"Pending"});
+        res.status(200).json({
+            message:member.length?"Fethed Members Successfully":"No Such Member is Pending",
+            members:member,
+            totalMembers:member.length
+        })
 
     }catch(err){
         console.log(err)
@@ -207,12 +234,17 @@ exports.getMemberDetails = async(req,res)=>{
     try{
         const {id} = req.params;
         const member = await Member.findOne({_id:id,gym:req.gym._id});
-        // .       
-            // .
-            // Please Watch the youtube video for full code 
-            // .
-            // .
-            // .
+        if(!member){
+            return res.status(400).json({
+                error:"No Such Member"
+            })
+        }
+
+        res.status(200).json({
+            message:"Member Data fetched",
+            member:member
+        })
+
     }catch(err){
         console.log(err)
         res.status(500).json({ error: 'Server error' });
@@ -224,12 +256,18 @@ exports.changeStatus = async(req,res)=>{
         const {id} = req.params;
         const {status} = req.body;
         const member = await Member.findOne({_id:id,gym:req.gym._id});
-        // .       
-            // .
-            // Please Watch the youtube video for full code 
-            // .
-            // .
-            // .
+        
+        if(!member){
+            return res.status(400).json({
+                error:"No Such Member"
+            })
+        }
+
+        member.status = status;
+        await member.save();
+        res.stauts(200).json({
+            message:"Status cahanged Successfully"
+        })
 
     }catch(err){
         console.log(err)
@@ -248,12 +286,13 @@ exports.updateMemberPlan=async(req,res)=>{
             let today = new Date();
             let nextBillDate = addMonthsToDate(getMonth,today);
             const member = await Member.findOne({gym:req.gym._id,_id:id});
-            // .       
-            // .
-            // Please Watch the youtube video for full code 
-            // .
-            // .
-            // .
+           if(!member){
+            return res.status(409).json({error : "No such member are there"})
+           }
+           member.nextBillDate = nextBillDate;
+           member.lastPayment = today;
+           await member.save();
+           res.status(200).json({message: "member Renewed Successfully",member});
 
         }else{
             return res.status(409).json({error:"No such Membership are there"})
